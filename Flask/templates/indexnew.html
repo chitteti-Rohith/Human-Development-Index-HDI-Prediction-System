@@ -1,0 +1,249 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Predict HDI</title>
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    body {
+      font-family: 'Segoe UI', sans-serif;
+      background: #0a0f2c;
+      color: #ffffff;
+      min-height: 100vh;
+    }
+
+    nav {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 16px 40px;
+      background: rgba(255,255,255,0.05);
+      border-bottom: 1px solid rgba(255,255,255,0.1);
+    }
+    nav .brand { font-size: 18px; font-weight: 600; color: #00d4aa; }
+    nav a {
+      color: #ffffff;
+      text-decoration: none;
+      margin-left: 24px;
+      font-size: 14px;
+      padding: 8px 20px;
+      border-radius: 6px;
+      transition: background 0.2s;
+    }
+    nav a.active, nav a:hover { background: #00d4aa; color: #0a0f2c; font-weight: 600; }
+
+    .page {
+      display: flex;
+      justify-content: center;
+      align-items: flex-start;
+      padding: 48px 20px;
+    }
+
+    .card {
+      background: rgba(255,255,255,0.06);
+      border: 1px solid rgba(255,255,255,0.14);
+      border-radius: 16px;
+      padding: 36px 40px;
+      width: 100%;
+      max-width: 520px;
+    }
+
+    .card h2 {
+      font-size: 24px;
+      font-weight: 700;
+      color: #00d4aa;
+      margin-bottom: 6px;
+    }
+    .card .sub {
+      font-size: 13px;
+      color: rgba(255,255,255,0.55);
+      margin-bottom: 28px;
+    }
+
+    .field { margin-bottom: 20px; }
+    .field label {
+      display: block;
+      font-size: 13px;
+      font-weight: 500;
+      color: rgba(255,255,255,0.8);
+      margin-bottom: 6px;
+    }
+    .field .hint {
+      font-size: 11px;
+      color: rgba(255,255,255,0.4);
+      margin-top: 4px;
+    }
+
+    input, select {
+      width: 100%;
+      padding: 10px 14px;
+      background: rgba(255,255,255,0.08);
+      border: 1px solid rgba(255,255,255,0.18);
+      border-radius: 8px;
+      color: #ffffff;
+      font-size: 14px;
+      font-family: 'Segoe UI', sans-serif;
+      transition: border-color 0.2s;
+    }
+    input:focus, select:focus {
+      outline: none;
+      border-color: #00d4aa;
+    }
+    select option { background: #0a0f2c; color: #ffffff; }
+
+    .btn {
+      width: 100%;
+      padding: 13px;
+      background: #00d4aa;
+      color: #0a0f2c;
+      font-size: 16px;
+      font-weight: 700;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+      margin-top: 8px;
+      transition: background 0.2s;
+      font-family: 'Segoe UI', sans-serif;
+    }
+    .btn:hover { background: #00b894; }
+
+    .divider {
+      border: none;
+      border-top: 1px solid rgba(255,255,255,0.1);
+      margin: 24px 0;
+    }
+
+    .quick-fill {
+      display: flex;
+      gap: 8px;
+      flex-wrap: wrap;
+      margin-bottom: 20px;
+    }
+    .qbtn {
+      font-size: 12px;
+      padding: 5px 12px;
+      border-radius: 20px;
+      border: 1px solid rgba(255,255,255,0.2);
+      background: transparent;
+      color: rgba(255,255,255,0.7);
+      cursor: pointer;
+      font-family: 'Segoe UI', sans-serif;
+      transition: all 0.15s;
+    }
+    .qbtn:hover { border-color: #00d4aa; color: #00d4aa; }
+  </style>
+</head>
+<body>
+
+  <nav>
+    <span class="brand">HDI Predictor</span>
+    <div>
+      <a href="/Home">Home</a>
+      <a href="/Prediction" class="active">Predict</a>
+    </div>
+  </nav>
+
+  <div class="page">
+    <div class="card">
+      <h2>Predict HDI Score</h2>
+      <p class="sub">Enter development indicators to get the predicted HDI classification.</p>
+
+      <p style="font-size:12px;color:rgba(255,255,255,0.45);margin-bottom:8px;">QUICK FILL</p>
+      <div class="quick-fill">
+        <button class="qbtn" onclick="fill(176,83.2,13.2,68000,99)">🇳🇴 Norway</button>
+        <button class="qbtn" onclick="fill(76,70.2,6.7,6590,43)">🇮🇳 India</button>
+        <button class="qbtn" onclick="fill(161,62.4,2.1,1120,5)">🇳🇪 Niger</button>
+        <button class="qbtn" onclick="fill(31,82.5,13.2,45000,98)">🇩🇪 Germany</button>
+      </div>
+
+      <hr class="divider"/>
+
+      <form action="/predict" method="post">
+
+        <div class="field">
+          <label>Country</label>
+          <select name="Country" id="country">
+            <option value="">Select a country</option>
+            <option value="0">Afghanistan</option>
+            <option value="8">Australia</option>
+            <option value="13">Bangladesh</option>
+            <option value="22">Brazil</option>
+            <option value="31">Canada</option>
+            <option value="36">China</option>
+            <option value="38">Colombia</option>
+            <option value="44">Egypt</option>
+            <option value="49">Ethiopia</option>
+            <option value="55">France</option>
+            <option value="57">Germany</option>
+            <option value="64">Ghana</option>
+            <option value="76">India</option>
+            <option value="77">Indonesia</option>
+            <option value="84">Japan</option>
+            <option value="97">Kenya</option>
+            <option value="109">Mexico</option>
+            <option value="116">Morocco</option>
+            <option value="122">Nepal</option>
+            <option value="130">Nigeria</option>
+            <option value="134">Norway</option>
+            <option value="138">Pakistan</option>
+            <option value="148">Philippines</option>
+            <option value="155">Russia</option>
+            <option value="161">Saudi Arabia</option>
+            <option value="167">South Africa</option>
+            <option value="171">Spain</option>
+            <option value="176">Sweden</option>
+            <option value="179">Turkey</option>
+            <option value="185">United Kingdom</option>
+            <option value="186">United States</option>
+            <option value="191">Vietnam</option>
+          </select>
+          <span class="hint">Used as encoded numeric feature in the model</span>
+        </div>
+
+        <div class="field">
+          <label>Life expectancy (years)</label>
+          <input type="number" name="Life expectancy" id="life"
+                 placeholder="e.g. 72.5" min="40" max="90" step="0.1" required/>
+          <span class="hint">Range: 40 – 90 years</span>
+        </div>
+
+        <div class="field">
+          <label>Mean years of schooling</label>
+          <input type="number" name="Mean years of schooling" id="mean_school"
+                 placeholder="e.g. 8.5" min="0" max="15" step="0.1" required/>
+          <span class="hint">Average years of education completed (0 – 15)</span>
+        </div>
+
+        <div class="field">
+          <label>Gross national income (GNI) per capita (PPP $)</label>
+          <input type="number" name="Gross national income (GNI) per capita" id="gni"
+                 placeholder="e.g. 5000" min="500" max="100000" step="100" required/>
+          <span class="hint">Range: $500 – $100,000</span>
+        </div>
+
+        <div class="field">
+          <label>Internet users (%)</label>
+          <input type="number" name="Internet users" id="internet"
+                 placeholder="e.g. 45" min="0" max="100" step="0.1" required/>
+          <span class="hint">Percentage of population using internet (0 – 100)</span>
+        </div>
+
+        <button class="btn" type="submit">Predict HDI →</button>
+      </form>
+    </div>
+  </div>
+
+  <script>
+    function fill(country, life, mean, gni, internet) {
+      document.getElementById('country').value = country;
+      document.getElementById('life').value = life;
+      document.getElementById('mean_school').value = mean;
+      document.getElementById('gni').value = gni;
+      document.getElementById('internet').value = internet;
+    }
+  </script>
+
+</body>
+</html>

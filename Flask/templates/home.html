@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Human Development Index</title>
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    body {
+      font-family: 'Segoe UI', sans-serif;
+      background: #0a0f2c;
+      color: #ffffff;
+      min-height: 100vh;
+    }
+
+    /* ── Navbar ── */
+    nav {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 16px 40px;
+      background: rgba(255,255,255,0.05);
+      border-bottom: 1px solid rgba(255,255,255,0.1);
+    }
+    nav .brand {
+      font-size: 18px;
+      font-weight: 600;
+      color: #00d4aa;
+      letter-spacing: 0.5px;
+    }
+    nav a {
+      color: #ffffff;
+      text-decoration: none;
+      margin-left: 24px;
+      font-size: 14px;
+      padding: 8px 20px;
+      border-radius: 6px;
+      transition: background 0.2s;
+    }
+    nav a.active, nav a:hover {
+      background: #00d4aa;
+      color: #0a0f2c;
+      font-weight: 600;
+    }
+
+    /* ── Hero ── */
+    .hero {
+      text-align: center;
+      padding: 80px 40px 40px;
+    }
+    .hero h1 {
+      font-size: 48px;
+      font-weight: 700;
+      color: #00d4aa;
+      letter-spacing: -1px;
+      margin-bottom: 16px;
+    }
+    .hero .subtitle {
+      font-size: 18px;
+      color: rgba(255,255,255,0.7);
+      max-width: 700px;
+      margin: 0 auto 32px;
+      line-height: 1.7;
+    }
+    .hero .cta {
+      display: inline-block;
+      background: #00d4aa;
+      color: #0a0f2c;
+      font-weight: 700;
+      font-size: 16px;
+      padding: 14px 40px;
+      border-radius: 8px;
+      text-decoration: none;
+      transition: background 0.2s, transform 0.1s;
+    }
+    .hero .cta:hover { background: #00b894; transform: translateY(-2px); }
+
+    /* ── Cards ── */
+    .cards {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 20px;
+      max-width: 900px;
+      margin: 48px auto;
+      padding: 0 40px;
+    }
+    .card {
+      background: rgba(255,255,255,0.06);
+      border: 1px solid rgba(255,255,255,0.12);
+      border-radius: 12px;
+      padding: 24px;
+      text-align: center;
+    }
+    .card .icon { font-size: 32px; margin-bottom: 12px; }
+    .card h3 { font-size: 15px; font-weight: 600; color: #00d4aa; margin-bottom: 8px; }
+    .card p  { font-size: 13px; color: rgba(255,255,255,0.65); line-height: 1.6; }
+
+    /* ── Info section ── */
+    .info {
+      max-width: 800px;
+      margin: 0 auto 60px;
+      padding: 0 40px;
+      font-size: 15px;
+      color: rgba(255,255,255,0.7);
+      line-height: 1.8;
+      text-align: center;
+    }
+
+    /* ── Tiers ── */
+    .tiers {
+      display: flex;
+      justify-content: center;
+      gap: 12px;
+      flex-wrap: wrap;
+      margin: 24px 0;
+    }
+    .tier {
+      padding: 6px 18px;
+      border-radius: 20px;
+      font-size: 13px;
+      font-weight: 600;
+    }
+    .tier-vh { background: #d4edda; color: #155724; }
+    .tier-h  { background: #cce5ff; color: #004085; }
+    .tier-m  { background: #fff3cd; color: #856404; }
+    .tier-l  { background: #f8d7da; color: #721c24; }
+
+    footer {
+      text-align: center;
+      padding: 20px;
+      font-size: 12px;
+      color: rgba(255,255,255,0.3);
+      border-top: 1px solid rgba(255,255,255,0.08);
+    }
+  </style>
+</head>
+<body>
+
+  <nav>
+    <span class="brand">HDI Predictor</span>
+    <div>
+      <a href="/Home" class="active">Home</a>
+      <a href="/Prediction">Predict</a>
+    </div>
+  </nav>
+
+  <div class="hero">
+    <h1>Human Development Index</h1>
+    <p class="subtitle">
+      A machine learning model that predicts a country's HDI score using
+      health, education, and income indicators — powered by Linear Regression.
+    </p>
+    <a href="/Prediction" class="cta">Predict HDI →</a>
+  </div>
+
+  <div class="tiers">
+    <span class="tier tier-vh">Very High ≥ 0.80</span>
+    <span class="tier tier-h">High  0.70 – 0.79</span>
+    <span class="tier tier-m">Medium 0.40 – 0.70</span>
+    <span class="tier tier-l">Low ≤ 0.40</span>
+  </div>
+
+  <div class="cards">
+    <div class="card">
+      <div class="icon">🏥</div>
+      <h3>Health</h3>
+      <p>Life expectancy at birth reflects the overall quality of healthcare and living conditions.</p>
+    </div>
+    <div class="card">
+      <div class="icon">🎓</div>
+      <h3>Education</h3>
+      <p>Mean and expected years of schooling measure access and quality of education systems.</p>
+    </div>
+    <div class="card">
+      <div class="icon">💰</div>
+      <h3>Income</h3>
+      <p>Gross National Income (GNI) per capita (PPP $) reflects the standard of living.</p>
+    </div>
+  </div>
+
+  <div class="info">
+    The Human Development Index was created by the United Nations Development Programme
+    to emphasize that people and their capabilities are the ultimate criteria for assessing
+    a country's development — not economic growth alone. It combines health, education,
+    and income into a single composite score between 0 and 1.
+  </div>
+
+  <footer>ML-0027 · Human Development Index Prediction · Flask + Scikit-learn</footer>
+
+</body>
+</html>
