@@ -162,8 +162,9 @@ The application predicts:
 
 - Rohith Chitteti
 - Daggavolu Ganesh
-- Gaddala Amrutha
 - Yanamala Sreelekha
+- Gaddala Amrutha
+
 
 ---
 
